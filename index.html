@@ -480,6 +480,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       if(!base) throw new Error('Primero guarda una liga de Firebase');
       const resp = await fetch(base + path + '.json', {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload||null)});
       if(!resp.ok) throw new Error('HTTP ' + resp.status);
+      if(String(path||'').includes('/viewer_licenses/')){try{const v=Math.max(Date.now(),Number(localStorage.getItem('mx_admin_act_ver')||0)+1);localStorage.setItem('mx_admin_act_ver',String(v));await fetch(base+'/sync_versions/'+encodeURIComponent(getBranch())+'/activations.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({v,updatedAt:new Date().toISOString()})});}catch(_e){}}
       return await resp.json().catch(()=>null);
     }
 
@@ -808,7 +809,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       bind();
       setupAccordion();
       if(getDbUrl()) refreshPanel();
-      setInterval(()=>{ if(getDbUrl()) refreshPanel(); }, 30000);
+      setInterval(()=>{ if(getDbUrl()&&!document.hidden) refreshPanel(); }, 120000);
     }
     init();
   </script>
@@ -865,7 +866,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="mx-ecosystem-viewer-config-v106">
 (function(){
  'use strict';if(window.__mxEcosystemViewerConfigV106)return;window.__mxEcosystemViewerConfigV106=true;
- const DISCOVERY_DB='https://ecosistema-macroxel-default-rtdb.firebaseio.com',LEGACY='HGAM',POLL=10000;let checking=false,last='';
+ const DISCOVERY_DB='https://ecosistema-macroxel-default-rtdb.firebaseio.com',LEGACY='HGAM',POLL=300000;let checking=false,last='';
  const txt=v=>String(v==null?'':v).trim(),cleanDb=v=>txt(v).replace(/\.json\/?$/i,'').replace(/\/+$/,'');
  function cleanId(v){return(txt(v)||LEGACY).toUpperCase().replace(/[.#$\[\]\/]/g,'_')||LEGACY;}
  function cfg(){try{const c=window.mxViewerGetCfg?.();if(c)return{db:cleanDb(c.db),branch:cleanId(c.branch)}}catch(_e){}return{db:'',branch:LEGACY};}
