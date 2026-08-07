@@ -169,10 +169,36 @@ input,button,select,textarea{background:#fff;color:#102844;border-color:#cfddeb}
 button{color:#fff}.secondary{color:#334155!important;background:#eef3f8!important}
 .kpi,.item,.perm-item{background:#f8fbfe;border-color:#dce7f1}.meta,.sub,label,.muted{color:#60758d}
 thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-color:#d8e5f2}.mx-acc-head .mx-acc-toggle{background:#eef3f8;color:#334155;border-color:#d5e1ec}
-.vla-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.vla-table{min-width:1050px}.vla-table select{padding:7px 8px;border-radius:9px}.vla-actions{display:flex;gap:6px;flex-wrap:wrap}.vla-actions button{width:auto;padding:8px 11px;border-radius:9px;font-size:11px;font-weight:900;color:#fff!important;border:0;box-shadow:0 7px 16px rgba(18,66,110,.14)}.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important;color:#fff!important}.vla-actions button[data-action="activate"]:hover{filter:brightness(1.04);transform:translateY(-1px)}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important;color:#fff!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important;color:#fff!important}.vla-state{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}
+.vla-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:7px;align-items:center;margin:9px 0}.vla-table{min-width:760px;table-layout:fixed}.vla-table th,.vla-table td{padding:6px 7px;font-size:10px;vertical-align:top}.vla-table th:nth-child(1){width:150px}.vla-table th:nth-child(2){width:145px}.vla-table th:nth-child(3){width:205px}.vla-table th:nth-child(4){width:120px}.vla-table th:nth-child(5){width:140px}.vla-table th:nth-child(6){width:190px}.vla-table select{padding:6px 7px;border-radius:8px;font-size:10px}.vla-actions{display:flex;gap:5px;flex-wrap:wrap}.vla-actions button{width:auto;padding:6px 8px;border-radius:8px;font-size:10px;font-weight:900;color:#fff!important;border:0;box-shadow:0 5px 12px rgba(18,66,110,.12)}.vla-actions button[data-action="grant"],.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important}.vla-state{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}.vla-apps{display:flex;gap:4px;flex-wrap:wrap}.vla-app{display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf5;color:#166534;font-size:9px;font-weight:900}.vla-app.pending{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.vla-app button{border:0;background:transparent;color:#991b1b;padding:0;font-size:10px}@media(max-width:700px){.vla-toolbar{grid-template-columns:1fr auto}.vla-toolbar input{grid-column:1/-1}.vla-table{min-width:690px}.vla-table th,.vla-table td{padding:5px;font-size:9px}}
 @media(max-width:700px){.wrap{width:min(100% - 12px,1600px)}.hero{min-height:58px;flex-wrap:nowrap}.mx-admin-logo{width:42px;height:42px}.hero h1{font-size:15px}.hero p{display:none}#dbBadge{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.card{padding:12px;border-radius:15px}}
 </style>
 
+<script id="mx-unified-device-activation-v100">
+(function(){
+'use strict';
+if(window.mxUnifiedActivation)return;
+const txt=v=>String(v==null?'':v).trim();
+const norm=v=>txt(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[\s_-]+/g,'_');
+function hash(v){let h=2166136261;for(const ch of String(v||'')){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return(h>>>0).toString(16).padStart(8,'0').toUpperCase()}
+function canvasFp(){try{const c=document.createElement('canvas');c.width=220;c.height=42;const x=c.getContext('2d');if(!x)return'';x.textBaseline='top';x.font='14px Arial';x.fillStyle='#12426e';x.fillRect(0,0,220,42);x.fillStyle='#fff';x.fillText('MACROXEL-DISPOSITIVO',7,9);return c.toDataURL()}catch(_e){return''}}
+function fingerprint(){return [navigator.platform||'',navigator.userAgent||'',navigator.hardwareConcurrency||'',navigator.deviceMemory||'',screen.width||'',screen.height||'',screen.colorDepth||'',new Date().getTimezoneOffset(),(navigator.languages||[]).join(','),canvasFp()].join('|')}
+function deviceId(){const key='mx_macroxel_unified_device_id_v1';try{let id=txt(localStorage.getItem(key)).toUpperCase();if(/^MACROXEL-DISPOSITIVO-[A-F0-9]{16}$/.test(id))return id;const fp=fingerprint();id='MACROXEL-DISPOSITIVO-'+hash(fp)+hash(fp+'|MACROXEL');localStorage.setItem(key,id);return id}catch(_e){const fp=fingerprint();return'MACROXEL-DISPOSITIVO-'+hash(fp)+hash(fp+'|MACROXEL')}}
+function keyOf(v){return txt(v).replace(/[.#$\[\]\/]/g,'_')}
+function code(v){const n=norm(v);if(n.includes('SURTIDO')&&n.includes('COLECTIVO'))return'SURTIDO_COLECTIVOS';if(n.includes('TRANSFER'))return'TRANSFERENCIAS';if(n.includes('EXISTENCIA'))return'EXISTENCIAS';if(n.includes('FARMACOVIGILANCIA'))return'FARMACOVIGILANCIA';if(n.includes('COLECTIVO'))return'COLECTIVOS';if(n.includes('CADUC')||n.includes('ANALISIS')||n.includes('ANALITICA'))return'ANALISIS_SISTEMA';if(n.includes('ADMINISTRADOR'))return'ADMINISTRADOR';return n||'VISOR'}
+function label(v){const c=code(v);return{TRANSFERENCIAS:'MACROXEL Transferencias',EXISTENCIAS:'MACROXEL Existencias',COLECTIVOS:'MACROXEL Colectivos',FARMACOVIGILANCIA:'MACROXEL Farmacovigilancia',SURTIDO_COLECTIVOS:'MACROXEL Surtido Colectivos',ANALISIS_SISTEMA:'MACROXEL Análisis Sistema',ADMINISTRADOR:'MACROXEL Administrador'}[c]||txt(v)||'MACROXEL Visor'}
+function baseState(r){if(!r)return'missing';const s=norm(r.status||r.estado);if(/PEND|ESPERA|WAIT/.test(s))return'pending';if(r.active===false||/SUSPEND|REVOK|CANCEL|INACTIV|DESACTIV|DELET|ELIMIN/.test(s))return'suspended';const exp=Date.parse(r.expiresAt||r.vence||r.expiry||'');if(r.active===true||/ACTIVE|ACTIVA|ACTIVO|VIGENTE|ENABLED/.test(s))return Number.isFinite(exp)&&Date.now()<=exp?'active':'expired';if(/VENC|EXPIR|CADUC/.test(s))return'expired';return'pending'}
+function applications(r){const out={};if(r?.applications&&typeof r.applications==='object')for(const [k,v] of Object.entries(r.applications)){if(v)out[code(k)]={...v,appCode:code(v.appCode||k),appName:label(v.appName||v.appCode||k)}}const rawCode=code(r?.appCode||''),legacy=(rawCode&&rawCode!=='VISOR'&&!rawCode.includes('MACROXEL_VISOR'))?rawCode:code(r?.appName||r?.app||r?.application||r?.moduleName||r?.appCode||'');if(legacy&&legacy!=='VISOR'&&!out[legacy])out[legacy]={appCode:legacy,appName:label(r?.appName||r?.app||legacy),status:r?.status,active:r?.active,requestedAt:r?.requestedAt,lastRequestAt:r?.lastRequestAt,lastSeenAt:r?.lastSeenAt,version:r?.version,approvedBy:r?.approvedBy,approvedAt:r?.activatedAt||r?.approvedAt};return out}
+function appState(r,app){const c=code(app),base=baseState(r);if(['suspended','expired','missing'].includes(base))return base;const a=applications(r)[c];if(!a)return base==='active'?'missing':base;const s=norm(a.status||a.estado);if(a.active===true||/ACTIVE|ACTIVA|ACTIVO|VIGENTE|ENABLED/.test(s))return base==='active'?'active':base;if(a.active===false&&/SUSPEND|REVOK|CANCEL|INACTIV|DESACTIV/.test(s))return'suspended';if(/SUSPEND|REVOK|CANCEL|INACTIV|DESACTIV/.test(s))return'suspended';return'pending'}
+function cleanPerson(p={}){return{fullName:txt(p.fullName||p.name||p.nombre||p.nombreCompleto),phone:txt(p.phone||p.telefono||p.mobile),email:txt(p.email||p.correo).toLowerCase()}}
+function samePerson(existing,person){const a=cleanPerson(existing),b=cleanPerson(person);if(!a.fullName&&!a.phone&&!a.email)return true;const n=x=>norm(x).replace(/_/g,' '),d=x=>txt(x).replace(/\D/g,'');return(!a.fullName||n(a.fullName)===n(b.fullName))&&(!a.phone||d(a.phone)===d(b.phone))&&(!a.email||a.email.toLowerCase()===b.email.toLowerCase())}
+function prepareRequest(prev,opts={}){const now=new Date().toISOString(),c=code(opts.appCode||opts.appName),name=label(opts.appName||c),person=cleanPerson(opts.person||{}),old=prev&&typeof prev==='object'?prev:{};if(Object.keys(old).length&&!samePerson(old,person))throw new Error('Los datos no coinciden con el dispositivo ya registrado. Verifica nombre completo, teléfono y correo.');const apps=applications(old),base=baseState(old),current=apps[c]||{},already=appState(old,c)==='active';apps[c]={...current,appCode:c,appName:name,version:txt(opts.version||current.version),status:already?'active':'pending',active:already===true,requestedAt:current.requestedAt||now,lastRequestAt:already?current.lastRequestAt||now:now,lastSeenAt:now,requestType:already?'validated':(base==='active'?'additional_application':'activation')};return{...old,...person,name:person.fullName,nombre:person.fullName,telefono:person.phone,correo:person.email,deviceId:deviceId(),deviceKey:keyOf(deviceId()),branch:txt(opts.branch||old.branch||old.sucursal).toUpperCase(),applications:apps,appCode:c,appName:name,app:name,application:name,version:txt(opts.version||old.version),status:base==='active'?'active':'pending',active:base==='active',requestedAt:old.requestedAt||now,lastRequestAt:now,lastSeenAt:now,updatedAt:now,pendingAppCode:already?'':c,pendingAppName:already?'':name,requestType:base==='active'?'additional_application':'activation',userAgent:navigator.userAgent||'',platform:navigator.platform||''}}
+function touchPatch(rec,app,version){const c=code(app),apps=applications(rec),now=new Date().toISOString(),a=apps[c]||{appCode:c,appName:label(c)};apps[c]={...a,lastSeenAt:now,lastValidatedAt:now,version:txt(version||a.version)};return{applications:apps,lastSeenAt:now,lastValidatedAt:now,updatedAt:now}}
+function legacyIds(){const keys=['mx_visor_device_id_v1','mx_service_orders_device_v1','mx_fv_device_v1','mx_sc_device_v1','mx_caducidades_device_v1','mx_admin_device_v1'];const out=[];for(const k of keys){try{const v=txt(localStorage.getItem(k));if(v&&v!==deviceId()&&!out.includes(v))out.push(v)}catch(_e){}}return out}
+function mergeLegacy(current,legacy,opts={}){const c=code(opts.appCode||opts.appName),name=label(opts.appName||c),now=new Date().toISOString(),cur=current&&typeof current==='object'?current:{},apps=applications(cur),legacyState=appState(legacy,c),legacyBase=baseState(legacy),curBase=baseState(cur),legacyApps=applications(legacy),source=legacyApps[c]||{};if(!['active','pending'].includes(legacyState))return cur;apps[c]={...source,appCode:c,appName:name,version:txt(opts.version||source.version),status:legacyState,active:legacyState==='active',requestedAt:source.requestedAt||legacy.requestedAt||now,lastRequestAt:source.lastRequestAt||legacy.lastRequestAt||now,lastSeenAt:now,migratedFrom:txt(legacy.deviceId)};const active=curBase==='active'||legacyBase==='active';const curExp=Date.parse(cur.expiresAt||0)||0,oldExp=Date.parse(legacy.expiresAt||0)||0,expiresAt=new Date(Math.max(curExp,oldExp)).toISOString();const person=cleanPerson(cur.fullName||cur.phone||cur.email?cur:legacy);return{...legacy,...cur,...person,name:person.fullName,nombre:person.fullName,telefono:person.phone,correo:person.email,deviceId:deviceId(),deviceKey:keyOf(deviceId()),branch:txt(opts.branch||cur.branch||legacy.branch||legacy.sucursal).toUpperCase(),applications:apps,status:active?'active':'pending',active,expiresAt:(curExp||oldExp)?expiresAt:(cur.expiresAt||legacy.expiresAt||''),updatedAt:now,lastSeenAt:now,appCode:c,appName:name}}
+async function adoptLegacy(current,opts={}){if(appState(current,opts.appCode)==='active')return current;for(const id of legacyIds()){try{const legacy=await opts.read(id);if(!legacy)continue;const inferred=code(legacy.appCode||legacy.appName||legacy.app||legacy.application);if(inferred!==code(opts.appCode)&&!applications(legacy)[code(opts.appCode)])continue;const merged=mergeLegacy(current,legacy,opts);if(merged&&Object.keys(merged).length){await opts.write(merged);try{await opts.remove?.(id)}catch(_e){}return merged}}catch(_e){}}return current}
+window.mxUnifiedActivation={txt,norm,code,label,deviceId,keyOf,baseState,applications,appState,cleanPerson,samePerson,prepareRequest,touchPatch,legacyIds,adoptLegacy};
+})();
+</script>
 </head>
 <body>
 <header>
@@ -189,58 +215,7 @@ thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-col
 </div>
 </header>
 <main class="wrap">
-<section class="topgrid">
-<div class="card mx-acc-card is-collapsed" data-acc="interconexion">
-<div class="mx-acc-head">
-<div class="title">🔗 Interconexión</div>
-<button type="button" class="mx-acc-toggle">Abrir</button>
-</div>
-<div class="mx-acc-body">
-<div class="sub">Pega aquí la liga de tu Firebase Realtime Database. MACROXEL Administrador no depende de una sola liga fija. El campo inicia vacío, se puede guardar, editar o dejar en blanco.</div>
-<div class="row section">
-<div style="flex:2.2">
-<label>Liga del Realtime Database</label>
-<input id="dbUrlInput" placeholder="https://tu-proyecto-default-rtdb.firebaseio.com" />
-</div>
-<div style="flex:.55;min-width:130px">
-<label>ID unidad (licencia principal)</label>
-<input id="branchInput" value="HGAM" maxlength="80" readonly title="ID automático de la licencia principal" />
-</div>
-<div style="flex:.7">
-<label>&nbsp;</label>
-<button id="saveDbBtn">💾 Guardar liga</button>
-</div>
-<div style="flex:.7">
-<label>&nbsp;</label>
-</div>
-<div style="flex:.7">
-<label>&nbsp;</label>
-<button id="clearDbBtn" class="danger">🗑️ Limpiar</button>
-</div>
-</div>
-<div class="toolbar">
-</div>
-<div class="info-grid">
-<div class="kpi">
-<div class="n">Usuarios activos</div>
-<div class="v" id="kpiActive">0</div>
-</div>
-<div class="kpi">
-<div class="n">Usuarios con permisos</div>
-<div class="v" id="kpiPerms">0</div>
-</div>
-<div class="kpi">
-<div class="n">Último reset</div>
-<div class="v" id="kpiReset" style="font-size:14px">—</div>
-</div>
-<div class="kpi">
-<div class="n">Último respaldo</div>
-<div class="v" id="kpiBackup" style="font-size:14px">—</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+<section hidden aria-hidden="true"><input id="dbUrlInput"><input id="branchInput" value="HGAM"><button id="saveDbBtn" type="button"></button><button id="clearDbBtn" type="button"></button><span id="kpiActive">0</span><span id="kpiPerms">0</span><span id="kpiReset">—</span><span id="kpiBackup">—</span></section>
 <section class="card section mx-acc-card is-collapsed" data-acc="permisos">
 <div class="mx-acc-head">
 <div class="title">🛡️ Permisos remotos por usuario</div>
@@ -334,7 +309,7 @@ thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-col
 <button type="button" class="mx-acc-toggle">Abrir</button>
 </div>
 <div class="mx-acc-body">
-<div class="sub">Autoriza, renueva, suspende o elimina licencias de todas las aplicaciones MACROXEL del ID de unidad sincronizado.</div>
+<div class="sub">Un solo registro por dispositivo. Autoriza cada visor solicitado sin duplicar equipos ni licencias.</div>
 <div class="vla-toolbar">
 <input id="vlaSearch" placeholder="Buscar nombre, correo, teléfono o dispositivo" style="flex:1;min-width:240px">
 <select id="vlaFilter" style="width:auto">
@@ -351,24 +326,8 @@ thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-col
 </div>
 <div class="table-wrap">
 <table class="vla-table">
-<thead>
-<tr>
-<th>Estado</th>
-<th>Nombre</th>
-<th>Teléfono</th>
-<th>Correo</th>
-<th>Dispositivo</th>
-<th>Aplicación</th>
-<th>Vigencia</th>
-<th>Plan</th>
-<th>Acciones</th>
-</tr>
-</thead>
-<tbody id="vlaBody">
-<tr>
-<td colspan="9" class="empty">Abre el módulo y actualiza.</td>
-</tr>
-</tbody>
+<thead><tr><th>Solicitante</th><th>Dispositivo</th><th>Visores</th><th>Solicitud</th><th>Estado / vigencia</th><th>Acciones</th></tr></thead>
+<tbody id="vlaBody"><tr><td colspan="6" class="empty">Abre el módulo y actualiza.</td></tr></tbody>
 </table>
 </div>
 </div>
@@ -849,20 +808,28 @@ thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-col
     init();
   </script>
 
-<script id="mx-admin-viewer-activation">
+<script id="mx-admin-viewer-activation-v2">
 (function(){
 'use strict';
-const $=id=>document.getElementById(id), txt=v=>String(v==null?'':v).trim(), esc2=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let rows=[];
-function stateOf(r){const s=txt(r?.status).toLowerCase();if(r?.active===true){const x=Date.parse(r.expiresAt||'');if(x&&x<Date.now())return'expired';return'active'}if(s.includes('suspend'))return'suspended';if(s.includes('expir')||s.includes('venc'))return'expired';return'pending'}
+const $=id=>document.getElementById(id),txt=v=>String(v==null?'':v).trim(),esc2=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let rows=[];
+function norm(v){return txt(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[\s_-]+/g,'_')}
+function code(v){const n=norm(v);if(n.includes('SURTIDO')&&n.includes('COLECTIVO'))return'SURTIDO_COLECTIVOS';if(n.includes('TRANSFER'))return'TRANSFERENCIAS';if(n.includes('EXISTENCIA'))return'EXISTENCIAS';if(n.includes('FARMACOVIGILANCIA'))return'FARMACOVIGILANCIA';if(n.includes('COLECTIVO'))return'COLECTIVOS';if(n.includes('CADUC')||n.includes('ANALISIS'))return'ANALISIS_SISTEMA';return n||'VISOR'}
+function label(v){return{TRANSFERENCIAS:'Transferencias',EXISTENCIAS:'Existencias',COLECTIVOS:'Colectivos',FARMACOVIGILANCIA:'Farmacovigilancia',SURTIDO_COLECTIVOS:'Surtido Colectivos',ANALISIS_SISTEMA:'Análisis Sistema'}[code(v)]||txt(v)||'Visor'}
+function baseState(r){const s=norm(r?.status);if(/PEND|ESPERA|WAIT/.test(s))return'pending';if(r?.active===false||/SUSPEND|REVOK|CANCEL|INACTIV/.test(s))return'suspended';const x=Date.parse(r?.expiresAt||'');if(r?.active===true||/ACTIVE|ACTIVA|VIGENTE/.test(s))return x&&x<Date.now()?'expired':'active';if(/EXPIR|VENC/.test(s))return'expired';return'pending'}
+function apps(r){const out={};if(r?.applications&&typeof r.applications==='object')for(const[k,v]of Object.entries(r.applications)){if(v)out[code(k)]={...v,appCode:code(v.appCode||k),appName:label(v.appName||k)}}const rawCode=code(r?.appCode||''),legacy=(rawCode&&rawCode!=='VISOR'&&!rawCode.includes('MACROXEL_VISOR'))?rawCode:code(r?.appName||r?.app||r?.appCode||'');if(legacy&&legacy!=='VISOR'&&!out[legacy])out[legacy]={appCode:legacy,appName:label(legacy),status:r?.status,active:r?.active,lastRequestAt:r?.lastRequestAt,requestedAt:r?.requestedAt};return out}
+function appState(a){const s=norm(a?.status);if(a?.active===true||/ACTIVE|ACTIVA|VIGENTE/.test(s))return'active';if(/SUSPEND|REVOK|CANCEL/.test(s))return'suspended';return'pending'}
+function pending(r){return Object.values(apps(r)).filter(a=>appState(a)==='pending')}
+function active(r){return Object.values(apps(r)).filter(a=>appState(a)==='active')}
+function stateOf(r){return pending(r).length?'pending':baseState(r)}
 function addMonths(date,n){const d=new Date(date);d.setMonth(d.getMonth()+n);return d}
 function planMonths(p){return p==='1Y'?12:p==='6M'?6:1}
 function fmt(v){const d=new Date(v||'');return isNaN(d)?'—':d.toLocaleString('es-MX')}
 function setVla(msg,tone=''){const e=$('vlaStatus');if(!e)return;e.textContent=msg;e.classList.remove('status-ok','status-bad','status-warn');if(tone==='ok')e.classList.add('status-ok');if(tone==='bad')e.classList.add('status-bad');if(tone==='warn')e.classList.add('status-warn')}
-async function refresh(){if(!getDbUrl())return setVla('Guarda la liga de Firebase primero','bad');setVla('Consultando activaciones...');try{const data=await dbGet(`/viewer_licenses/${encodeURIComponent(getBranch())}`).catch(()=>null);rows=Object.entries(data||{}).filter(([,v])=>v).map(([id,v])=>({...v,__id:id}));render();setVla(`${rows.length} licencia(s) · ${rows.filter(r=>stateOf(r)==='pending').length} en espera`,'ok')}catch(e){setVla(e.message||String(e),'bad')}}
-function render(){const q=txt($('vlaSearch')?.value).toLowerCase(),f=$('vlaFilter')?.value||'all';const show=rows.filter(r=>(f==='all'||stateOf(r)===f)&&(!q||[r.fullName,r.phone,r.email,r.deviceId,r.__id,r.appCode].some(v=>txt(v).toLowerCase().includes(q))));$('vlaBody').innerHTML=show.length?show.map(r=>{const st=stateOf(r),id=r.__id;return `<tr><td><span class="vla-state ${st}">${st==='pending'?'EN ESPERA':st==='active'?'ACTIVA':st==='expired'?'VENCIDA':'SUSPENDIDA'}</span></td><td><b>${esc2(r.fullName||'—')}</b></td><td>${esc2(r.phone||'—')}</td><td>${esc2(r.email||'—')}</td><td><small>${esc2(r.deviceId||id)}</small></td><td>${esc2(r.appName||r.app||r.appCode||r.moduleName||'MACROXEL')}</td><td>${fmt(r.expiresAt)}</td><td><select data-plan="${esc2(id)}"><option value="1M">1 mes</option><option value="6M">6 meses</option><option value="1Y">1 año</option></select></td><td><div class="vla-actions"><button class="vla-activate" data-action="activate" data-id="${esc2(id)}">${st==='active'?'Renovar':'Activar'}</button><button class="warn" data-action="suspend" data-id="${esc2(id)}">Suspender</button><button class="danger" data-action="delete" data-id="${esc2(id)}">Eliminar</button></div></td></tr>`}).join(''):'<tr><td colspan="9" class="empty">Sin licencias para el filtro seleccionado.</td></tr>'}
-async function action(id,act){const row=rows.find(r=>r.__id===id);if(!row)return;const base=`/viewer_licenses/${encodeURIComponent(getBranch())}/${encodeURIComponent(id)}`;if(act==='delete'){if(!confirm('¿Eliminar por completo esta licencia?'))return;await dbPut(base,null);return refresh()}if(act==='suspend'){if(!confirm('¿Suspender el acceso de este dispositivo?'))return;const next={...row,active:false,status:'suspended',suspendedAt:new Date().toISOString(),updatedAt:new Date().toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR'};delete next.__id;await dbPut(base,next);return refresh()}const sel=document.querySelector(`[data-plan="${CSS.escape(id)}"]`),plan=sel?.value||'1M',now=new Date(),current=Date.parse(row.expiresAt||''),start=current>Date.now()?new Date(current):now,expires=addMonths(start,planMonths(plan)),next={...row,active:true,status:'active',plan,activatedAt:row.activatedAt||now.toISOString(),lastActivatedAt:now.toISOString(),expiresAt:expires.toISOString(),updatedAt:now.toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR',branch:getBranch()};delete next.__id;await dbPut(base,next);refresh()}
-function bindAct(){const body=$('vlaBody');if(!body)return;$('vlaRefresh').onclick=refresh;$('vlaSearch').oninput=render;$('vlaFilter').onchange=render;body.onclick=e=>{const b=e.target.closest('[data-action]');if(b)action(b.dataset.id,b.dataset.action).catch(err=>setVla(err.message||String(err),'bad'))};document.querySelector('[data-acc="activaciones"] .mx-acc-head')?.addEventListener('click',()=>setTimeout(()=>{if(!document.querySelector('[data-acc="activaciones"]').classList.contains('is-collapsed'))refresh()},100));}
+async function refresh(){if(!getDbUrl())return setVla('Esperando la conexión sincronizada del sistema principal','bad');setVla('Consultando activaciones...');try{const data=await dbGet(`/viewer_licenses/${encodeURIComponent(getBranch())}`).catch(()=>null);rows=Object.entries(data||{}).filter(([,v])=>v).map(([id,v])=>({...v,__id:id}));render();setVla(`${rows.length} dispositivo(s) · ${rows.reduce((n,r)=>n+pending(r).length,0)} visor(es) en espera`,'ok')}catch(e){setVla(e.message||String(e),'bad')}}
+function chips(r){return[...active(r).map(a=>`<span class="vla-app">${esc2(label(a.appCode))}<button data-action="revoke" data-id="${esc2(r.__id)}" data-app="${esc2(code(a.appCode))}">×</button></span>`),...pending(r).map(a=>`<span class="vla-app pending">⏳ ${esc2(label(a.appCode))}</span>`)].join('')||'<small>Sin acceso</small>'}
+function render(){const q=txt($('vlaSearch')?.value).toLowerCase(),f=$('vlaFilter')?.value||'all',show=rows.filter(r=>(f==='all'||stateOf(r)===f)&&(!q||[r.fullName,r.phone,r.email,r.deviceId,r.__id,Object.values(apps(r)).map(a=>a.appName).join(' ')].some(v=>txt(v).toLowerCase().includes(q))));$('vlaBody').innerHTML=show.length?show.map(r=>{const st=stateOf(r),pa=pending(r),last=pa.sort((a,b)=>String(b.lastRequestAt||'').localeCompare(String(a.lastRequestAt||'')))[0];return`<tr><td><b>${esc2(r.fullName||r.name||r.nombre||'—')}</b><small style="display:block">${esc2(r.phone||r.telefono||'—')}</small><small>${esc2(r.email||r.correo||'—')}</small></td><td><small style="word-break:break-all">${esc2(r.deviceId||r.__id)}</small></td><td><div class="vla-apps">${chips(r)}</div></td><td><b>${esc2(last?label(last.appCode):'—')}</b><small style="display:block">${fmt(last?.lastRequestAt||r.lastRequestAt)}</small></td><td><span class="vla-state ${st}">${st==='pending'?'EN ESPERA':st==='active'?'ACTIVA':st==='expired'?'VENCIDA':'SUSPENDIDA'}</span><small style="display:block">${r.expiresAt?'Vence '+fmt(r.expiresAt):'Sin vigencia'}</small></td><td><div class="vla-actions"><select data-plan="${esc2(r.__id)}"><option value="1M">1 mes</option><option value="6M">6 meses</option><option value="1Y">1 año</option></select>${pa.length?`<select data-app-select="${esc2(r.__id)}">${pa.map(a=>`<option value="${esc2(code(a.appCode))}">${esc2(label(a.appCode))}</option>`).join('')}</select><button data-action="grant" data-id="${esc2(r.__id)}">Autorizar visor</button>`:''}${baseState(r)==='active'?`<button data-action="renew" data-id="${esc2(r.__id)}">Renovar</button><button class="warn" data-action="suspend" data-id="${esc2(r.__id)}">Suspender</button>`:''}<button class="danger" data-action="delete" data-id="${esc2(r.__id)}">Eliminar</button></div></td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Sin dispositivos para el filtro seleccionado.</td></tr>'}
+async function action(id,act,appCode){const row=rows.find(r=>r.__id===id);if(!row)return;const path=`/viewer_licenses/${encodeURIComponent(getBranch())}/${encodeURIComponent(id)}`;if(act==='delete'){if(!confirm('¿Eliminar este dispositivo y todos sus accesos?'))return;await dbPut(path,null);return refresh()}const now=new Date(),all=apps(row);if(act==='suspend'){if(!confirm('¿Suspender el acceso completo de este dispositivo?'))return;Object.assign(row,{active:false,status:'suspended',suspendedAt:now.toISOString(),updatedAt:now.toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR'})}else if(act==='revoke'){const c=code(appCode);if(all[c])all[c]={...all[c],active:false,status:'suspended',revokedAt:now.toISOString(),revokedBy:'MACROXEL_ADMINISTRADOR'};row.applications=all;row.updatedAt=now.toISOString()}else{const plan=document.querySelector(`[data-plan="${CSS.escape(id)}"]`)?.value||'1M';if(act==='grant'){const c=code(appCode||document.querySelector(`[data-app-select="${CSS.escape(id)}"]`)?.value||pending(row)[0]?.appCode),a=all[c]||{appCode:c,appName:label(c)};all[c]={...a,active:true,status:'active',approvedAt:now.toISOString(),approvedBy:'MACROXEL_ADMINISTRADOR'};row.applications=all}const current=Date.parse(row.expiresAt||''),start=current>Date.now()?new Date(current):now,expires=addMonths(start,planMonths(plan));Object.assign(row,{active:true,status:'active',plan,activatedAt:row.activatedAt||now.toISOString(),lastActivatedAt:now.toISOString(),expiresAt:expires.toISOString(),updatedAt:now.toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR',branch:getBranch()})}const next={...row};delete next.__id;await dbPut(path,next);refresh()}
+function bindAct(){const body=$('vlaBody');if(!body)return;$('vlaRefresh').onclick=refresh;$('vlaSearch').oninput=render;$('vlaFilter').onchange=render;body.onclick=e=>{const b=e.target.closest('[data-action]');if(b)action(b.dataset.id,b.dataset.action,b.dataset.app||document.querySelector(`[data-app-select="${CSS.escape(b.dataset.id||'')}"]`)?.value).catch(err=>setVla(err.message||String(err),'bad'))};document.querySelector('[data-acc="activaciones"] .mx-acc-head')?.addEventListener('click',()=>setTimeout(()=>{if(!document.querySelector('[data-acc="activaciones"]').classList.contains('is-collapsed'))refresh()},100))}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindAct,{once:true});else bindAct();
 })();
 </script>
