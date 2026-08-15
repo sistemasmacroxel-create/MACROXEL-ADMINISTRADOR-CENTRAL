@@ -169,7 +169,7 @@ input,button,select,textarea{background:#fff;color:#102844;border-color:#cfddeb}
 button{color:#fff}.secondary{color:#334155!important;background:#eef3f8!important}
 .kpi,.item,.perm-item{background:#f8fbfe;border-color:#dce7f1}.meta,.sub,label,.muted{color:#60758d}
 thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-color:#d8e5f2}.mx-acc-head .mx-acc-toggle{background:#eef3f8;color:#334155;border-color:#d5e1ec}
-.vla-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:7px;align-items:center;margin:9px 0}.vla-table{min-width:760px;table-layout:fixed}.vla-table th,.vla-table td{padding:6px 7px;font-size:10px;vertical-align:top}.vla-table th:nth-child(1){width:155px}.vla-table th:nth-child(2){width:205px}.vla-table th:nth-child(3){width:145px}.vla-table th:nth-child(4){width:205px}.vla-table th:nth-child(5){width:120px}.vla-table th:nth-child(6){width:140px}.vla-table select{padding:6px 7px;border-radius:8px;font-size:10px}.vla-actions{display:flex;gap:5px;flex-wrap:wrap}.vla-actions button{width:auto;padding:6px 8px;border-radius:8px;font-size:10px;font-weight:900;color:#fff!important;border:0;box-shadow:0 5px 12px rgba(18,66,110,.12)}.vla-actions button[data-action="grant"],.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important}.vla-state{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}.vla-apps{display:flex;gap:4px;flex-wrap:wrap}.vla-app{display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf5;color:#166534;font-size:9px;font-weight:900}.vla-app.pending{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.vla-app button{border:0;background:transparent;color:#991b1b;padding:0;font-size:10px}@media(max-width:700px){.vla-toolbar{grid-template-columns:1fr auto}.vla-toolbar input{grid-column:1/-1}.vla-table{min-width:690px}.vla-table th,.vla-table td{padding:5px;font-size:9px}}
+.vla-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:7px;align-items:center;margin:9px 0}.vla-table{min-width:760px;table-layout:fixed}.vla-table th,.vla-table td{padding:6px 7px;font-size:10px;vertical-align:top}.vla-table th:nth-child(1){width:170px}.vla-table th:nth-child(2){width:220px}.vla-table th:nth-child(3){width:150px}.vla-table th:nth-child(4){width:205px}.vla-table th:nth-child(5){width:120px}.vla-table th:nth-child(6){width:145px}.vla-table select{padding:6px 7px;border-radius:8px;font-size:10px}.vla-actions{display:flex;gap:5px;flex-wrap:wrap}.vla-actions button{width:auto;padding:6px 8px;border-radius:8px;font-size:10px;font-weight:900;color:#fff!important;border:0;box-shadow:0 5px 12px rgba(18,66,110,.12)}.vla-actions button[data-action="grant"],.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important}.vla-state{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}.vla-apps{display:flex;gap:4px;flex-wrap:wrap}.vla-app{display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf5;color:#166534;font-size:9px;font-weight:900}.vla-app.pending{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.vla-app button{border:0;background:transparent;color:#991b1b;padding:0;font-size:10px}@media(max-width:700px){.vla-toolbar{grid-template-columns:1fr auto}.vla-toolbar input{grid-column:1/-1}.vla-table{min-width:690px}.vla-table th,.vla-table td{padding:5px;font-size:9px}}
 @media(max-width:700px){.wrap{width:min(100% - 12px,1600px)}.hero{min-height:58px;flex-wrap:nowrap}.mx-admin-logo{width:42px;height:42px}.hero h1{font-size:15px}.hero p{display:none}#dbBadge{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.card{padding:12px;border-radius:15px}}
 </style>
 
@@ -221,6 +221,50 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </header>
 <main class="wrap">
 <section hidden aria-hidden="true"><input id="dbUrlInput"><input id="branchInput" value="HGAM"><button id="saveDbBtn" type="button"></button><button id="clearDbBtn" type="button"></button><span id="kpiActive">0</span><span id="kpiPerms">0</span><span id="kpiReset">—</span><span id="kpiBackup">—</span></section>
+<section class="card section mx-acc-card is-collapsed" data-acc="activaciones">
+<div class="mx-acc-head">
+<div class="title">🔐 Activación de aplicaciones</div>
+<button type="button" class="mx-acc-toggle">Abrir</button>
+</div>
+<div class="mx-acc-body">
+<div class="sub">Un solo registro por dispositivo. Autoriza cada visor solicitado sin duplicar equipos ni licencias.</div>
+<div class="vla-toolbar">
+<input id="vlaSearch" placeholder="Buscar nombre, correo, teléfono o dispositivo" style="flex:1;min-width:240px">
+<select id="vlaFilter" style="width:auto">
+<option value="all">Todos</option>
+<option value="pending">En espera</option>
+<option value="active">Activos</option>
+<option value="expired">Vencidos</option>
+<option value="suspended">Suspendidos</option>
+</select>
+<button id="vlaRefresh" style="width:auto">🔄 Actualizar</button>
+</div>
+<div class="toolbar">
+<div class="pill" id="vlaStatus">Sin consultar</div>
+</div>
+<div class="table-wrap">
+<table class="vla-table">
+<thead><tr><th>Solicitante</th><th>Acciones</th><th>Dispositivo</th><th>Visores</th><th>Solicitud</th><th>Estado / vigencia</th></tr></thead>
+<tbody id="vlaBody"><tr><td colspan="6" class="empty">Abre el módulo y actualiza.</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="card section mx-acc-card is-collapsed" data-acc="usuarios_activos">
+<div class="mx-acc-head">
+<div class="title">👤 Usuarios activos</div>
+<button type="button" class="mx-acc-toggle">Abrir</button>
+</div>
+<div class="mx-acc-body">
+<div class="sub">Lectura del heartbeat del sistema para ver última señal, equipo y vista actual.</div>
+<div class="toolbar">
+<div class="pill" id="activeHint">Sin datos aún</div>
+<button id="refreshBtn" class="secondary" style="width:auto">🔄 Actualizar</button>
+</div>
+<div id="activeUsers" class="list section">
+</div>
+</div>
+</section>
 <section class="card section mx-acc-card is-collapsed" data-acc="permisos">
 <div class="mx-acc-head">
 <div class="title">🛡️ Permisos remotos por usuario</div>
@@ -250,51 +294,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </div>
 </div>
 </section>
-<div class="card mx-acc-card is-collapsed" data-acc="activaciones">
-<div class="mx-acc-head">
-<div class="title">🔐 Activación de aplicaciones</div>
-<button type="button" class="mx-acc-toggle">Abrir</button>
-</div>
-<div class="mx-acc-body">
-<div class="sub">Un solo registro por dispositivo. Autoriza cada visor solicitado sin duplicar equipos ni licencias.</div>
-<div class="vla-toolbar">
-<input id="vlaSearch" placeholder="Buscar nombre, correo, teléfono o dispositivo" style="flex:1;min-width:240px">
-<select id="vlaFilter" style="width:auto">
-<option value="all">Todos</option>
-<option value="pending">En espera</option>
-<option value="active">Activos</option>
-<option value="expired">Vencidos</option>
-<option value="suspended">Suspendidos</option>
-</select>
-<button id="vlaRefresh" style="width:auto">🔄 Actualizar</button>
-</div>
-<div class="toolbar">
-<div class="pill" id="vlaStatus">Sin consultar</div>
-</div>
-<div class="table-wrap">
-<table class="vla-table">
-<thead><tr><th>Solicitante</th><th>Acciones</th><th>Dispositivo</th><th>Visores</th><th>Solicitud</th><th>Estado / vigencia</th></tr></thead>
-<tbody id="vlaBody"><tr><td colspan="6" class="empty">Abre el módulo y actualiza.</td></tr></tbody>
-</table>
-</div>
-</div>
-</div>
+
+
+
+
+
+
 <section class="two-col">
-<div class="card mx-acc-card is-collapsed" data-acc="usuarios_activos">
-<div class="mx-acc-head">
-<div class="title">👤 Usuarios activos</div>
-<button type="button" class="mx-acc-toggle">Abrir</button>
-</div>
-<div class="mx-acc-body">
-<div class="sub">Lectura del heartbeat del sistema para ver última señal, equipo y vista actual.</div>
-<div class="toolbar">
-<div class="pill" id="activeHint">Sin datos aún</div>
-<button id="refreshBtn" class="secondary" style="width:auto">🔄 Actualizar</button>
-</div>
-<div id="activeUsers" class="list section">
-</div>
-</div>
-</div>
 <div class="card mx-acc-card is-collapsed" data-acc="mensajes">
 <div class="mx-acc-head">
 <div class="title">💬 Mensajes y respaldo</div>
