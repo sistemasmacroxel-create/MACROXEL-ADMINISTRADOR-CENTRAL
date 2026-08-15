@@ -467,10 +467,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     }
 
     function normalizeDbUrl(url){ return String(url||'').trim().replace(/\/+$/g,''); }
-    function getDbUrl(){ try{ const v=normalizeDbUrl(localStorage.getItem(LS_DB_KEY)||''); return(v==='https://sistemas-macroxel-default-rtdb.firebaseio.com'||v==='https://ecosistema-macroxel-default-rtdb.firebaseio.com')?'':v; }catch(e){ return ''; } }
+    function getDbUrl(){ try{ const v=normalizeDbUrl(localStorage.getItem(LS_DB_KEY)||''); return v; }catch(e){ return ''; } }
     function setDbUrl(url){
       let clean = normalizeDbUrl(url);
-      if(clean==='https://sistemas-macroxel-default-rtdb.firebaseio.com'||clean==='https://ecosistema-macroxel-default-rtdb.firebaseio.com') clean='';
+      
       try{
         if(clean) localStorage.setItem(LS_DB_KEY, clean);
         else localStorage.removeItem(LS_DB_KEY);
@@ -914,13 +914,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="mx-ecosystem-viewer-config-v106">
 (function(){
  'use strict';if(window.__mxEcosystemViewerConfigV106)return;window.__mxEcosystemViewerConfigV106=true;
- const DISCOVERY_DBS=['https://sistemas-macroxel-default-rtdb.firebaseio.com','https://ecosistema-macroxel-default-rtdb.firebaseio.com'],DISCOVERY_DB=DISCOVERY_DBS[0],LEGACY='HGAM',POLL=300000;let checking=false,last='';
+ const DISCOVERY_DBS=['https://ecosistema-macroxel-default-rtdb.firebaseio.com'],DISCOVERY_DB=DISCOVERY_DBS[0],LEGACY='HGAM',POLL=300000;let checking=false,last='';
  const txt=v=>String(v==null?'':v).trim(),cleanDb=v=>txt(v).replace(/\.json\/?$/i,'').replace(/\/+$/,'');
  function cleanId(v){return(txt(v)||LEGACY).toUpperCase().replace(/[.#$\[\]\/]/g,'_')||LEGACY;}
  function cfg(){try{const c=window.mxViewerGetCfg?.();if(c)return{db:cleanDb(c.db),branch:cleanId(c.branch)}}catch(_e){}return{db:'',branch:LEGACY};}
  function rest(db,path){const b=cleanDb(db);if(!b)return'';const p=String(path||'').startsWith('/')?String(path):'/'+String(path||'');const u=new URL(b+p+(p.endsWith('.json')?'':'.json'));u.searchParams.set('ts',String(Date.now()));return u.toString();}
  async function read(db,path){const u=rest(db,path);if(!u)return null;const r=await fetch(u,{cache:'no-store'});if(!r.ok)return null;return r.json().catch(()=>null);}
- function connectionFrom(r){if(!r||typeof r!=='object')return null;const db=cleanDb(r.firebaseUrl||r.currentUrl||r.db||r.url),branch=cleanId(r.unitId||r.activationId||r.storeId||r.branch);return(db&&!DISCOVERY_DBS.includes(db))?{db,branch}:null;}
+ function connectionFrom(r){if(!r||typeof r!=='object')return null;const db=cleanDb(r.firebaseUrl||r.currentUrl||r.db||r.url),branch=cleanId(r.unitId||r.activationId||r.storeId||r.branch);return db?{db,branch}:null;}
  function visible(el){if(!el||!el.isConnected)return false;for(let n=el;n&&n!==document.documentElement;n=n.parentElement){if(n.hidden)return false;const s=getComputedStyle(n);if(s.display==='none'||s.visibility==='hidden'||Number(s.opacity)===0)return false;}return true;}
  function gateCard(){const selectors=['#activationGate .gate-card','#loginGate .gate-card','#mxViewerActivationGate .mx-va-card','#mxViewerSalidaAuth .mx-vsa-card','#mxVaGate .mx-va-card'];return selectors.map(s=>document.querySelector(s)).find(visible)||null;}
  function render(){
@@ -954,7 +954,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    }catch(e){console.warn('[ECOSISTEMA] No se pudo consultar configuración principal',e?.message||e);return false;}finally{checking=false;}
  }
  window.mxCheckPrincipalConnection=check;window.mxEnsureViewerConnection=()=>check(true);
- document.addEventListener('click',async e=>{const b=e.target.closest?.('#actSubmit,#actValidate,#mxVaSubmit,#mxVaValidate,#loginBtn,#mxVsaLogin');if(!b||b.dataset.mxConnectionPass==='1')return;const c=cfg();if(cleanDb(c.db)&&!DISCOVERY_DBS.includes(cleanDb(c.db)))return;e.preventDefault();e.stopImmediatePropagation();const was=b.disabled;b.disabled=true;const found=await check(true);b.disabled=was;const now=cfg();if(!found||!cleanDb(now.db)){const info=document.getElementById('mxConnectionGateInfo');if(info)info.innerHTML='<b>No se encontró la conexión principal.</b><br>Abre Macroxel Hospitales con internet y guarda la URL para publicar el ID de activación.';return;}b.dataset.mxConnectionPass='1';try{b.click();}finally{setTimeout(()=>delete b.dataset.mxConnectionPass,0);}},true);
+ document.addEventListener('click',async e=>{const b=e.target.closest?.('#actSubmit,#actValidate,#mxVaSubmit,#mxVaValidate,#loginBtn,#mxVsaLogin');if(!b||b.dataset.mxConnectionPass==='1')return;const c=cfg();if(cleanDb(c.db)&&cleanId(c.branch)!==LEGACY)return;e.preventDefault();e.stopImmediatePropagation();const was=b.disabled;b.disabled=true;const found=await check(true);b.disabled=was;const now=cfg();if(!found||!cleanDb(now.db)){const info=document.getElementById('mxConnectionGateInfo');if(info)info.innerHTML='<b>No se encontró la conexión principal.</b><br>Abre Macroxel Hospitales con internet y guarda la URL para publicar el ID de activación.';return;}b.dataset.mxConnectionPass='1';try{b.click();}finally{setTimeout(()=>delete b.dataset.mxConnectionPass,0);}},true);
  window.addEventListener('online',()=>check(true));window.addEventListener('focus',()=>check(false));window.addEventListener('mx-viewer-config-changed',()=>setTimeout(render,20));
  const boot=()=>{render();check(true);setTimeout(()=>check(true),700);setTimeout(()=>check(false),2500);setInterval(()=>check(false),POLL);setInterval(render,3000);};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
