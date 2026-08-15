@@ -169,7 +169,7 @@ input,button,select,textarea{background:#fff;color:#102844;border-color:#cfddeb}
 button{color:#fff}.secondary{color:#334155!important;background:#eef3f8!important}
 .kpi,.item,.perm-item{background:#f8fbfe;border-color:#dce7f1}.meta,.sub,label,.muted{color:#60758d}
 thead th{background:#eaf0ff;color:#243b66}.table-wrap{background:#fff;border-color:#d8e5f2}.mx-acc-head .mx-acc-toggle{background:#eef3f8;color:#334155;border-color:#d5e1ec}
-.vla-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:7px;align-items:center;margin:9px 0}.vla-table{min-width:760px;table-layout:fixed}.vla-table th,.vla-table td{padding:6px 7px;font-size:10px;vertical-align:top}.vla-table th:nth-child(1){width:150px}.vla-table th:nth-child(2){width:145px}.vla-table th:nth-child(3){width:205px}.vla-table th:nth-child(4){width:120px}.vla-table th:nth-child(5){width:140px}.vla-table th:nth-child(6){width:190px}.vla-table select{padding:6px 7px;border-radius:8px;font-size:10px}.vla-actions{display:flex;gap:5px;flex-wrap:wrap}.vla-actions button{width:auto;padding:6px 8px;border-radius:8px;font-size:10px;font-weight:900;color:#fff!important;border:0;box-shadow:0 5px 12px rgba(18,66,110,.12)}.vla-actions button[data-action="grant"],.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important}.vla-state{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}.vla-apps{display:flex;gap:4px;flex-wrap:wrap}.vla-app{display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf5;color:#166534;font-size:9px;font-weight:900}.vla-app.pending{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.vla-app button{border:0;background:transparent;color:#991b1b;padding:0;font-size:10px}@media(max-width:700px){.vla-toolbar{grid-template-columns:1fr auto}.vla-toolbar input{grid-column:1/-1}.vla-table{min-width:690px}.vla-table th,.vla-table td{padding:5px;font-size:9px}}
+.vla-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:7px;align-items:center;margin:9px 0}.vla-table{min-width:760px;table-layout:fixed}.vla-table th,.vla-table td{padding:6px 7px;font-size:10px;vertical-align:top}.vla-table th:nth-child(1){width:155px}.vla-table th:nth-child(2){width:205px}.vla-table th:nth-child(3){width:145px}.vla-table th:nth-child(4){width:205px}.vla-table th:nth-child(5){width:120px}.vla-table th:nth-child(6){width:140px}.vla-table select{padding:6px 7px;border-radius:8px;font-size:10px}.vla-actions{display:flex;gap:5px;flex-wrap:wrap}.vla-actions button{width:auto;padding:6px 8px;border-radius:8px;font-size:10px;font-weight:900;color:#fff!important;border:0;box-shadow:0 5px 12px rgba(18,66,110,.12)}.vla-actions button[data-action="grant"],.vla-actions button[data-action="activate"]{background:linear-gradient(135deg,#16a34a,#22c55e)!important}.vla-actions button.warn{background:linear-gradient(135deg,#f59e0b,#f97316)!important}.vla-actions button.danger{background:linear-gradient(135deg,#dc2626,#ef4444)!important}.vla-state{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.vla-state.pending{background:#fff7ed;color:#9a3412}.vla-state.active{background:#ecfdf5;color:#166534}.vla-state.suspended,.vla-state.expired{background:#fef2f2;color:#991b1b}.vla-apps{display:flex;gap:4px;flex-wrap:wrap}.vla-app{display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf5;color:#166534;font-size:9px;font-weight:900}.vla-app.pending{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.vla-app button{border:0;background:transparent;color:#991b1b;padding:0;font-size:10px}@media(max-width:700px){.vla-toolbar{grid-template-columns:1fr auto}.vla-toolbar input{grid-column:1/-1}.vla-table{min-width:690px}.vla-table th,.vla-table td{padding:5px;font-size:9px}}
 @media(max-width:700px){.wrap{width:min(100% - 12px,1600px)}.hero{min-height:58px;flex-wrap:nowrap}.mx-admin-logo{width:42px;height:42px}.hero h1{font-size:15px}.hero p{display:none}#dbBadge{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.card{padding:12px;border-radius:15px}}
 </style>
 
@@ -250,6 +250,35 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </div>
 </div>
 </section>
+<div class="card mx-acc-card is-collapsed" data-acc="activaciones">
+<div class="mx-acc-head">
+<div class="title">🔐 Activación de aplicaciones</div>
+<button type="button" class="mx-acc-toggle">Abrir</button>
+</div>
+<div class="mx-acc-body">
+<div class="sub">Un solo registro por dispositivo. Autoriza cada visor solicitado sin duplicar equipos ni licencias.</div>
+<div class="vla-toolbar">
+<input id="vlaSearch" placeholder="Buscar nombre, correo, teléfono o dispositivo" style="flex:1;min-width:240px">
+<select id="vlaFilter" style="width:auto">
+<option value="all">Todos</option>
+<option value="pending">En espera</option>
+<option value="active">Activos</option>
+<option value="expired">Vencidos</option>
+<option value="suspended">Suspendidos</option>
+</select>
+<button id="vlaRefresh" style="width:auto">🔄 Actualizar</button>
+</div>
+<div class="toolbar">
+<div class="pill" id="vlaStatus">Sin consultar</div>
+</div>
+<div class="table-wrap">
+<table class="vla-table">
+<thead><tr><th>Solicitante</th><th>Acciones</th><th>Dispositivo</th><th>Visores</th><th>Solicitud</th><th>Estado / vigencia</th></tr></thead>
+<tbody id="vlaBody"><tr><td colspan="6" class="empty">Abre el módulo y actualiza.</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
 <section class="two-col">
 <div class="card mx-acc-card is-collapsed" data-acc="usuarios_activos">
 <div class="mx-acc-head">
@@ -305,35 +334,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <div>
 <div class="pill" id="backupStatus">Sin respaldos todavía</div>
 </div>
-</div>
-</div>
-</div>
-<div class="card mx-acc-card is-collapsed" data-acc="activaciones">
-<div class="mx-acc-head">
-<div class="title">🔐 Activación de aplicaciones</div>
-<button type="button" class="mx-acc-toggle">Abrir</button>
-</div>
-<div class="mx-acc-body">
-<div class="sub">Un solo registro por dispositivo. Autoriza cada visor solicitado sin duplicar equipos ni licencias.</div>
-<div class="vla-toolbar">
-<input id="vlaSearch" placeholder="Buscar nombre, correo, teléfono o dispositivo" style="flex:1;min-width:240px">
-<select id="vlaFilter" style="width:auto">
-<option value="all">Todos</option>
-<option value="pending">En espera</option>
-<option value="active">Activos</option>
-<option value="expired">Vencidos</option>
-<option value="suspended">Suspendidos</option>
-</select>
-<button id="vlaRefresh" style="width:auto">🔄 Actualizar</button>
-</div>
-<div class="toolbar">
-<div class="pill" id="vlaStatus">Sin consultar</div>
-</div>
-<div class="table-wrap">
-<table class="vla-table">
-<thead><tr><th>Solicitante</th><th>Dispositivo</th><th>Visores</th><th>Solicitud</th><th>Estado / vigencia</th><th>Acciones</th></tr></thead>
-<tbody id="vlaBody"><tr><td colspan="6" class="empty">Abre el módulo y actualiza.</td></tr></tbody>
-</table>
 </div>
 </div>
 </div>
@@ -833,7 +833,7 @@ function fmt(v){const d=new Date(v||'');return isNaN(d)?'—':d.toLocaleString('
 function setVla(msg,tone=''){const e=$('vlaStatus');if(!e)return;e.textContent=msg;e.classList.remove('status-ok','status-bad','status-warn');if(tone==='ok')e.classList.add('status-ok');if(tone==='bad')e.classList.add('status-bad');if(tone==='warn')e.classList.add('status-warn')}
 async function refresh(){if(!getDbUrl())return setVla('Esperando la conexión sincronizada del sistema principal','bad');setVla('Consultando activaciones...');try{const data=await dbGet(`/viewer_licenses/${encodeURIComponent(getBranch())}`).catch(()=>null);rows=Object.entries(data||{}).filter(([,v])=>v).map(([id,v])=>({...v,__id:id}));render();setVla(`${rows.length} dispositivo(s) · ${rows.reduce((n,r)=>n+pending(r).length,0)} visor(es) en espera`,'ok')}catch(e){setVla(e.message||String(e),'bad')}}
 function chips(r){return[...active(r).map(a=>`<span class="vla-app">${esc2(label(a.appCode))}<button data-action="revoke" data-id="${esc2(r.__id)}" data-app="${esc2(code(a.appCode))}">×</button></span>`),...pending(r).map(a=>`<span class="vla-app pending">⏳ ${esc2(label(a.appCode))}</span>`)].join('')||'<small>Sin acceso</small>'}
-function render(){const q=txt($('vlaSearch')?.value).toLowerCase(),f=$('vlaFilter')?.value||'all',show=rows.filter(r=>(f==='all'||stateOf(r)===f)&&(!q||[r.fullName,r.phone,r.email,r.deviceId,r.__id,Object.values(apps(r)).map(a=>a.appName).join(' ')].some(v=>txt(v).toLowerCase().includes(q))));$('vlaBody').innerHTML=show.length?show.map(r=>{const st=stateOf(r),pa=pending(r),last=pa.sort((a,b)=>String(b.lastRequestAt||'').localeCompare(String(a.lastRequestAt||'')))[0];return`<tr><td><b>${esc2(r.fullName||r.name||r.nombre||'—')}</b><small style="display:block">${esc2(r.phone||r.telefono||'—')}</small><small>${esc2(r.email||r.correo||'—')}</small></td><td><small style="word-break:break-all">${esc2(r.deviceId||r.__id)}</small></td><td><div class="vla-apps">${chips(r)}</div></td><td><b>${esc2(last?label(last.appCode):'—')}</b><small style="display:block">${fmt(last?.lastRequestAt||r.lastRequestAt)}</small></td><td><span class="vla-state ${st}">${st==='pending'?'EN ESPERA':st==='active'?'ACTIVA':st==='expired'?'VENCIDA':'SUSPENDIDA'}</span><small style="display:block">${r.expiresAt?'Vence '+fmt(r.expiresAt):'Sin vigencia'}</small></td><td><div class="vla-actions"><select data-plan="${esc2(r.__id)}"><option value="1M">1 mes</option><option value="6M">6 meses</option><option value="1Y">1 año</option></select>${pa.length?`<select data-app-select="${esc2(r.__id)}">${pa.map(a=>`<option value="${esc2(code(a.appCode))}">${esc2(label(a.appCode))}</option>`).join('')}</select><button data-action="grant" data-id="${esc2(r.__id)}">Autorizar visor</button>`:''}${baseState(r)==='active'?`<button data-action="renew" data-id="${esc2(r.__id)}">Renovar</button><button class="warn" data-action="suspend" data-id="${esc2(r.__id)}">Suspender</button>`:''}<button class="danger" data-action="delete" data-id="${esc2(r.__id)}">Eliminar</button></div></td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Sin dispositivos para el filtro seleccionado.</td></tr>'}
+function render(){const q=txt($('vlaSearch')?.value).toLowerCase(),f=$('vlaFilter')?.value||'all',show=rows.filter(r=>(f==='all'||stateOf(r)===f)&&(!q||[r.fullName,r.phone,r.email,r.deviceId,r.__id,Object.values(apps(r)).map(a=>a.appName).join(' ')].some(v=>txt(v).toLowerCase().includes(q))));$('vlaBody').innerHTML=show.length?show.map(r=>{const st=stateOf(r),pa=pending(r),last=pa.sort((a,b)=>String(b.lastRequestAt||'').localeCompare(String(a.lastRequestAt||'')))[0];return`<tr><td><b>${esc2(r.fullName||r.name||r.nombre||'—')}</b><small style="display:block">${esc2(r.phone||r.telefono||'—')}</small><small>${esc2(r.email||r.correo||'—')}</small></td><td><div class="vla-actions"><select data-plan="${esc2(r.__id)}"><option value="1M">1 mes</option><option value="6M">6 meses</option><option value="1Y">1 año</option></select>${pa.length?`<select data-app-select="${esc2(r.__id)}">${pa.map(a=>`<option value="${esc2(code(a.appCode))}">${esc2(label(a.appCode))}</option>`).join('')}</select><button data-action="grant" data-id="${esc2(r.__id)}">Autorizar visor</button>`:''}${baseState(r)==='active'?`<button data-action="renew" data-id="${esc2(r.__id)}">Renovar</button><button class="warn" data-action="suspend" data-id="${esc2(r.__id)}">Suspender</button>`:''}<button class="danger" data-action="delete" data-id="${esc2(r.__id)}">Eliminar</button></div></td><td><small style="word-break:break-all">${esc2(r.deviceId||r.__id)}</small></td><td><div class="vla-apps">${chips(r)}</div></td><td><b>${esc2(last?label(last.appCode):'—')}</b><small style="display:block">${fmt(last?.lastRequestAt||r.lastRequestAt)}</small></td><td><span class="vla-state ${st}">${st==='pending'?'EN ESPERA':st==='active'?'ACTIVA':st==='expired'?'VENCIDA':'SUSPENDIDA'}</span><small style="display:block">${r.expiresAt?'Vence '+fmt(r.expiresAt):'Sin vigencia'}</small></td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Sin dispositivos para el filtro seleccionado.</td></tr>'}
 async function action(id,act,appCode){const row=rows.find(r=>r.__id===id);if(!row)return;const path=`/viewer_licenses/${encodeURIComponent(getBranch())}/${encodeURIComponent(id)}`;if(act==='delete'){if(!confirm('¿Eliminar este dispositivo y todos sus accesos?'))return;await dbPut(path,null);return refresh()}const now=new Date(),all=apps(row);if(act==='suspend'){if(!confirm('¿Suspender el acceso completo de este dispositivo?'))return;Object.assign(row,{active:false,status:'suspended',suspendedAt:now.toISOString(),updatedAt:now.toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR'})}else if(act==='revoke'){const c=code(appCode);if(all[c])all[c]={...all[c],active:false,status:'suspended',revokedAt:now.toISOString(),revokedBy:'MACROXEL_ADMINISTRADOR'};row.applications=all;row.updatedAt=now.toISOString()}else{const plan=document.querySelector(`[data-plan="${CSS.escape(id)}"]`)?.value||'1M';if(act==='grant'){const c=code(appCode||document.querySelector(`[data-app-select="${CSS.escape(id)}"]`)?.value||pending(row)[0]?.appCode),a=all[c]||{appCode:c,appName:label(c)};all[c]={...a,active:true,status:'active',approvedAt:now.toISOString(),approvedBy:'MACROXEL_ADMINISTRADOR'};row.applications=all}const current=Date.parse(row.expiresAt||''),start=current>Date.now()?new Date(current):now,expires=addMonths(start,planMonths(plan));Object.assign(row,{active:true,status:'active',plan,activatedAt:row.activatedAt||now.toISOString(),lastActivatedAt:now.toISOString(),expiresAt:expires.toISOString(),updatedAt:now.toISOString(),updatedBy:'MACROXEL_ADMINISTRADOR',branch:getBranch()})}const next={...row};delete next.__id;await dbPut(path,next);refresh()}
 function bindAct(){const body=$('vlaBody');if(!body)return;$('vlaRefresh').onclick=refresh;$('vlaSearch').oninput=render;$('vlaFilter').onchange=render;body.onclick=e=>{const b=e.target.closest('[data-action]');if(b)action(b.dataset.id,b.dataset.action,b.dataset.app||document.querySelector(`[data-app-select="${CSS.escape(b.dataset.id||'')}"]`)?.value).catch(err=>setVla(err.message||String(err),'bad'))};document.querySelector('[data-acc="activaciones"] .mx-acc-head')?.addEventListener('click',()=>setTimeout(()=>{if(!document.querySelector('[data-acc="activaciones"]').classList.contains('is-collapsed'))refresh()},100))}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindAct,{once:true});else bindAct();
