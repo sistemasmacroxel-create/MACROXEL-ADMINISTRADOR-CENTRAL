@@ -691,7 +691,18 @@ body.mx-admin-has-target .mx-acc-body .sub{font-size:10px!important;line-height:
     function getOwnDbUrl(){ try{ return normalizeDbUrl(localStorage.getItem(LS_DB_KEY)||''); }catch(e){ return ''; } }
     function getOwnBranch(){ try{ const b=String(localStorage.getItem(LS_BRANCH_KEY)||'HGAM').trim().toUpperCase()||'HGAM'; if(b==='SISTEMA DE INVENTARIO PRUEBAS'){localStorage.setItem(LS_BRANCH_KEY,'HGAM');return 'HGAM';} return b; }catch(e){ return 'HGAM'; } }
     function readAdminTarget(){try{const r=JSON.parse(localStorage.getItem(ADMIN_TARGET_KEY)||'null');const db=normalizeDbUrl(r?.db||r?.firebaseUrl||''),branch=String(r?.branch||r?.unitId||'').trim().toUpperCase();return db&&branch?{...r,db,branch}:null}catch(_e){return null}}
-    function setAdminTarget(ctx){const db=normalizeDbUrl(ctx?.db||ctx?.firebaseUrl||''),branch=String(ctx?.branch||ctx?.unitId||'').trim().toUpperCase();if(!db||!branch)return null;const next={db,branch,unitName:String(ctx?.unitName||ctx?.principalName||branch).trim(),selectedAt:new Date().toISOString(),mode:'ADMIN_TEMPORARY_TARGET'};try{localStorage.setItem(ADMIN_TARGET_KEY,JSON.stringify(next))}catch(_e){};window.dispatchEvent(new CustomEvent('mx-admin-target-changed',{detail:next}));return next}
+    function setAdminTarget(ctx){
+      const db=normalizeDbUrl(ctx?.db||ctx?.firebaseUrl||''),branch=String(ctx?.branch||ctx?.unitId||'').trim().toUpperCase();
+      if(!db||!branch)return null;
+      const unitName=String(ctx?.unitName||ctx?.principalName||branch).trim();
+      const prev=readAdminTarget();
+      /* Refrescar presencia/conectividad del mismo sistema NO debe reconstruir la consola ni minimizar módulos. */
+      if(prev&&prev.db===db&&prev.branch===branch&&String(prev.unitName||'')===unitName)return prev;
+      const next={db,branch,unitName,selectedAt:new Date().toISOString(),mode:'ADMIN_TEMPORARY_TARGET'};
+      try{localStorage.setItem(ADMIN_TARGET_KEY,JSON.stringify(next))}catch(_e){}
+      window.dispatchEvent(new CustomEvent('mx-admin-target-changed',{detail:next,previous:prev||null,systemChanged:!prev||prev.branch!==branch}));
+      return next
+    }
     function clearAdminTarget(){let previous=readAdminTarget();try{localStorage.removeItem(ADMIN_TARGET_KEY)}catch(_e){};window.dispatchEvent(new CustomEvent('mx-admin-target-changed',{detail:null,previous}));}
     function getDbUrl(){ const t=readAdminTarget(); return t?.db||getOwnDbUrl(); }
     function getBranch(){ const t=readAdminTarget(); return t?.branch||getOwnBranch(); }
@@ -1870,13 +1881,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 
-<script id="mx-admin-system-workspace-v100">
+<script id="mx-admin-system-workspace-v101-persistent-panels">
 (function(){
 'use strict';if(window.__mxAdminSystemWorkspaceV100)return;window.__mxAdminSystemWorkspaceV100=true;
 const $=id=>document.getElementById(id),txt=v=>String(v==null?'':v).trim();
 function target(){try{return window.mxAdminTargetCfg?.()||null}catch(_e){return null}}
 function setCollapsed(card,yes=true){if(!card)return;card.classList.toggle('is-collapsed',!!yes);const b=card.querySelector('.mx-acc-toggle');if(b)b.textContent=yes?'Abrir':'Minimizar'}
-function operationalCards(){return [...document.querySelectorAll('main.wrap > .mx-acc-card')].filter(c=>c.dataset.acc!=='conectividad')}
+function operationalCards(){return [...document.querySelectorAll('main.wrap .mx-acc-card')].filter(c=>c.dataset.acc!=='conectividad')}
 function clearOperationalViews(){
  const body=$('vlaBody');if(body)body.innerHTML='<tr><td colspan="6" class="empty">Selecciona un Sistema Principal para consultar sus activaciones.</td></tr>';
  const users=$('activeUsers');if(users)users.innerHTML='<div class="empty">Selecciona un Sistema Principal.</div>';
@@ -1896,14 +1907,22 @@ function compactConnectivity(){
 function ensureWorkspaceTitle(){
  let el=$('mxAdminWorkspaceTitle');if(el)return el;el=document.createElement('div');el.id='mxAdminWorkspaceTitle';const conn=$('mxConnectivityCenter');conn?.insertAdjacentElement('afterend',el);return el;
 }
-function sync(){
- compactConnectivity();const t=target(),has=!!(t?.db&&t?.branch);document.body.classList.toggle('mx-admin-has-target',has);
+let lastBranch='';
+function sync(evt=null){
+ compactConnectivity();const t=target(),has=!!(t?.db&&t?.branch),branch=has?txt(t.branch).toUpperCase():'';document.body.classList.toggle('mx-admin-has-target',has);
  const title=ensureWorkspaceTitle();
- if(has){title.innerHTML=`<div><b>Administrando: ${txt(t.unitName||t.branch)}</b><small>ID ${txt(t.branch)} · Los módulos siguientes pertenecen únicamente a este sistema.</small></div><span>Selección activa</span>`;operationalCards().forEach(c=>setCollapsed(c,true));}
- else{title.innerHTML='';clearOperationalViews();operationalCards().forEach(c=>setCollapsed(c,true));const p=$('mxNetSystemPanel');if(p)p.hidden=true;}
+ if(has){
+   title.innerHTML=`<div><b>Administrando: ${txt(t.unitName||t.branch)}</b><small>ID ${txt(t.branch)} · Los módulos siguientes pertenecen únicamente a este sistema.</small></div><span>Selección activa</span>`;
+   /* Solo se minimiza una vez al entrar a OTRO Sistema Principal. Refrescos de Firebase/presencia conservan exactamente lo que el usuario abrió. */
+   if(branch!==lastBranch){operationalCards().forEach(c=>setCollapsed(c,true));lastBranch=branch;}
+ }else{
+   title.innerHTML='';clearOperationalViews();
+   if(lastBranch){operationalCards().forEach(c=>setCollapsed(c,true));lastBranch='';}
+   const p=$('mxNetSystemPanel');if(p)p.hidden=true;
+ }
 }
 function guard(){document.addEventListener('click',e=>{const head=e.target.closest?.('main.wrap > .mx-acc-card:not([data-acc="conectividad"]) .mx-acc-head');if(!head)return;if(target())return;e.preventDefault();e.stopImmediatePropagation();alert('Selecciona primero un Sistema Principal. Las activaciones, usuarios, permisos y mensajes se administran por instalación.');},true)}
-function init(){try{window.mxAdminClearTarget?.()}catch(_e){};compactConnectivity();ensureWorkspaceTitle();guard();sync();window.addEventListener('mx-admin-target-changed',()=>setTimeout(sync,20));
+function init(){try{window.mxAdminClearTarget?.()}catch(_e){};compactConnectivity();ensureWorkspaceTitle();guard();sync();window.addEventListener('mx-admin-target-changed',e=>setTimeout(()=>sync(e),20));
  const close=$('mxNetCloseSystem');if(close)close.addEventListener('click',()=>setTimeout(sync,10));
  // Centro de conectividad abierto desde el inicio para que la primera pantalla sea la lista de sistemas.
  const c=$('mxConnectivityCenter');if(c){c.classList.remove('is-collapsed');const body=c.querySelector('.mx-acc-body');if(body)body.style.display='block'}
